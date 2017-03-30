@@ -1,6 +1,6 @@
 package ic.doc.camera;
 
-public class Camera {
+public class Camera implements WriteListener{
 
     private final Sensor sensor;
     private MemoryCard memoryCard;
@@ -25,6 +25,11 @@ public class Camera {
     public void powerOff() {
         sensor.powerDown();
         powerIsOn = false;
+    }
+
+    @Override
+    public void writeComplete() {
+
     }
 }
 
