@@ -40,7 +40,7 @@ public class CameraTest {
             exactly(1).of(sensor).readData(); will(returnValue(IMAGE));
             exactly(1).of(memoryCard).write(IMAGE);
         }});
-        camera.powerOff();
+        camera.powerOn();
         camera.pressShutter();
     }
 
