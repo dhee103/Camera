@@ -34,13 +34,22 @@ public class CameraTest {
     }
 
     @Test
-    public void pressingShutterWhenOffDoesNothing() {
+    public void pressingShutterWhenOnCopiesDataFromSensorToMemoryCard() {
         context.checking(new Expectations() {{
             ignoring(sensor).powerUp();
             exactly(1).of(sensor).readData(); will(returnValue(IMAGE));
             exactly(1).of(memoryCard).write(IMAGE);
         }});
         camera.powerOn();
+        camera.pressShutter();
+    }
+
+    @Test
+    public void pressingShutterWhenOffDoesNothing() {
+        context.checking(new Expectations() {{
+            never(sensor);
+            never(memoryCard);
+        }});
         camera.pressShutter();
     }
 
