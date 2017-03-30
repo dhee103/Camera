@@ -15,7 +15,7 @@ public class CameraTest {
     Sensor sensor = context.mock(Sensor.class);
     MemoryCard memoryCard = context.mock(MemoryCard.class);
 
-    Camera camera = new Camera(sensor);
+    Camera camera = new Camera(sensor, memoryCard);
 
     @Test
     public void switchingTheCameraOnPowersUpTheSensor() {
