@@ -7,10 +7,13 @@ import org.junit.Test;
 
 public class CameraTest {
 
+    private static final byte[] IMAGE = new byte[4];
+
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
 
     Sensor sensor = context.mock(Sensor.class);
+    MemoryCard memoryCard = context.mock(MemoryCard.class);
 
     Camera camera = new Camera(sensor);
 
@@ -28,6 +31,17 @@ public class CameraTest {
             exactly(1).of(sensor).powerDown();
         }});
         camera.powerOff();
+    }
+
+    @Test
+    public void pressingShutterWhenOffDoesNothing() {
+        context.checking(new Expectations() {{
+            ignoring(sensor).powerUp();
+            exactly(1).of(sensor).readData(); will(returnValue(IMAGE));
+            exactly(1).of(memoryCard).write(IMAGE);
+        }});
+        camera.powerOff();
+        camera.pressShutter();
     }
 
 }
